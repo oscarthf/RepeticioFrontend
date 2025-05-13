@@ -5,7 +5,6 @@ RUN adduser --disabled-password --gecos '' appuser
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3-setuptools \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -25,6 +24,6 @@ EXPOSE 8000
 CMD ["bash", "startup.bash"]
 
 # to build the image, run the following command in the terminal:
-# docker build -t language_app:latest .
+# docker build -t repeticio_frontend:latest .
 # to run the container, use the following command:
-# docker run -p 8000:8000 language_app:latest
+# docker run -p 8000:8000 repeticio_frontend:latest

@@ -16,8 +16,8 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 repeticio_api = RepeticioAPIClient(settings.REPETICIO_API_BASE_URL)
 
-# OPEN_LANGUAGE_APP_ALLOWED_USER_IDS = ["your_whitelisted_email@gmail.com"]
-OPEN_LANGUAGE_APP_ALLOWED_USER_IDS = []
+# REPETICIO_ALLOWED_USER_IDS = ["your_whitelisted_email@gmail.com"]
+REPETICIO_ALLOWED_USER_IDS = []
 GET_CREATED_EXERCISES_RATELIMIT = '40/m'  # Rate limit for get_created_exercises view
 DEFAULT_RATELIMIT = '100/h'  # Default rate limit for all views
 
@@ -43,7 +43,7 @@ def create_checkout_session(request):
     if not request.user.is_authenticated:
         return redirect('login')
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
 
     session = stripe.checkout.Session.create(
@@ -119,7 +119,7 @@ def app_settings(request):
     if not request.user.is_authenticated:
         return redirect('login')
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
 
     ######################
@@ -188,7 +188,7 @@ def home(request):
     if not request.user.is_authenticated:
         return redirect('login')
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
     
     ######################
@@ -218,7 +218,7 @@ def select_ui_language(request):
     if not request.user.is_authenticated:
         return redirect('login')
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
     
     did_create_user = repeticio_api.create_user_if_needed(user_id)
@@ -239,7 +239,7 @@ def select_learning_language(request):
     if not request.user.is_authenticated:
         return redirect('login')
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
     
     did_create_user = repeticio_api.create_user_if_needed(user_id)
@@ -262,7 +262,7 @@ def get_created_exercise(request):
         return JsonResponse({"error": "User not authenticated"}, status=401)
 
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
 
     ######################
@@ -303,7 +303,7 @@ def create_new_exercise(request):
     if not request.user.is_authenticated:
         return JsonResponse({"error": "User not authenticated"}, status=401)
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
 
     ######################
@@ -329,7 +329,7 @@ def apply_thumbs_up_or_down(request):
     if not request.user.is_authenticated:
         return redirect('login')
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
 
     #######################
@@ -365,7 +365,7 @@ def set_learning_language(request):
     if not request.user.is_authenticated:
         return redirect('login')
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
 
     data = request.GET
@@ -391,7 +391,7 @@ def set_ui_language(request):
     if not request.user.is_authenticated:
         return redirect('login')
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
 
     data = request.GET
@@ -417,7 +417,7 @@ def submit_answer(request):
     if not request.user.is_authenticated:
         return JsonResponse({"error": "User not authenticated"}, status=401)
     user_id = request.user.email
-    if len(OPEN_LANGUAGE_APP_ALLOWED_USER_IDS) and user_id not in OPEN_LANGUAGE_APP_ALLOWED_USER_IDS:
+    if len(REPETICIO_ALLOWED_USER_IDS) and user_id not in REPETICIO_ALLOWED_USER_IDS:
         return HttpResponse("You are not allowed to access this page.", status=403)
     
     ######################
