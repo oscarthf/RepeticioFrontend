@@ -1,3 +1,5 @@
+#!/bin/bash
+
 python manage.py migrate
 python manage.py collectstatic --noinput
-python manage.py runserver --insecure 0.0.0.0:8000
+gunicorn --config gunicorn_config.py repeticio.wsgi:application
